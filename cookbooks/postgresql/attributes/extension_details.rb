@@ -10,13 +10,13 @@
 #    statement instead of CREATE EXTENSION
 
 default[:pg_ext_details] = {
-  auto_explain: {
+  'auto_explain' => {
     use_load: true
   },
-  test_parser: {
+  'test_parser' => {
     max_version: 9.4
   },
-  test_shm_mq: {
+  'test_shm_mq' => {
     max_version: 9.4
   }
 }

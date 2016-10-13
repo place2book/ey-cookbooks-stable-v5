@@ -1,6 +1,6 @@
 resource_name :pg_extension
 
-property :ext_name, [Symbol, Array], required: true
+property :ext_name, [String, Array], required: true
 property :db_name, [String, Array], required: true
 property :schema_name, String
 property :version, String
@@ -8,7 +8,7 @@ property :old_version, String
 property :use_load, [TrueClass, FalseClass], default: false # use LOAD instead of CREATE EXTENSION
 
 action :install do
-  ext_names = ext_name.kind_of?(Symbol) ? [ext_name] : ext_name
+  ext_names = ext_name.kind_of?(String) ? [ext_name] : ext_name
   db_names = db_name.kind_of?(String) ? [db_name] : db_name
   postgres_version = node[:postgresql][:short_version]
   
@@ -59,8 +59,8 @@ action :install do
         end
       
         # these needs some configuration
-        include_recipe 'postgresql::auto_explain' if ext_name == :auto_explain
-        include_recipe 'postgresql::pg_stat_statements' if ext_name == :pg_stat_statements
+        include_recipe 'postgresql::auto_explain' if ext_name == 'auto_explain'
+        include_recipe 'postgresql::pg_stat_statements' if ext_name == 'pg_stat_statements'
       end
     end
   end
